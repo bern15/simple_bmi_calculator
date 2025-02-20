@@ -1,25 +1,141 @@
-# BMI Calculator - Flutter Application
+import 'package:flutter/cupertino.dart';
 
-A simple BMI (Body Mass Index) Calculator built with **Flutter**, utilizing the **Cupertino Design** for an iOS-style UI. This app allows users to input their height and weight, calculate their BMI, and display the corresponding BMI category (e.g., Underweight, Normal weight, Overweight, or Obese).
+class HomePage extends StatefulWidget {
+  @override
+  _HomePageState createState() => _HomePageState();
+  
+}
 
----
+class _HomePageState extends State<HomePage> {
+  final _heightController = TextEditingController();
+  final _weightController = TextEditingController();
+  double _bmi = 0.0;
 
-## Features
+  void _calculateBMI() {
+    double height = double.tryParse(_heightController.text) ?? 0;
+    double weight = double.tryParse(_weightController.text) ?? 0;
 
-- **BMI Calculation:** Enter height and weight to calculate BMI.
-- **BMI Category:** Displays the corresponding category based on the calculated BMI.
-- **Reset Functionality:** Clear all inputs and reset the BMI value.
-- **User Interface:** Cupertino-styled UI for a sleek, iOS-inspired design.
-- **Simple and Intuitive Design:** Clean layout and easy-to-use interface.
+    if (height > 0 && weight > 0) {
+      setState(() {
+        _bmi = weight / (height * height / 10000);
+      });
+    }
+  }
 
----
+  void _reset() {
+    _heightController.text = "";
+    _weightController.text = "";
+    setState(() {
+      _bmi = 0.0;
+    });
+  }
 
-## Screenshots (try the app 😊)
+  String _getBMICategory(double bmi) {
+    if (bmi <= 18.5) {
+      return 'Underweight';
+    } else if (bmi <= 24.9) {
+      return 'Normal weight';
+    } else if (bmi <= 29.9) {
+      return 'Overweight';
+    } else {
+      return 'Obese';
+    }
+  }
 
----
+  @override
+  Widget build(BuildContext context) {
+    return CupertinoPageScaffold(
+      child: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.all(20.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              // App Logo
+              Text(
+                "BMI ALAMIN!",
+                style: TextStyle(
+                  fontSize: 32,
+                  fontWeight: FontWeight.bold,
+                  color: Color.fromARGB(255, 0, 68, 255),
+                ),
+              ),
 
-## Installation and Usage
+              // Height Field with Icon
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 10.0),
+                child: Row(
+                  children: [
+                    Icon(CupertinoIcons.person_alt),
+                    SizedBox(width: 10),
+                    Expanded(
+                      child: CupertinoTextField(
+                        controller: _heightController,
+                        placeholder: "Height (cm)",
+                        keyboardType: TextInputType.number,
+                        padding: EdgeInsets.all(16),
+                        decoration: BoxDecoration(
+                          border: Border.all(color: CupertinoColors.systemGrey),
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
 
-### 1. Clone the Repository
-   ```bash
-   git clone https://github.com/bern15/simple_bmi_calculator.git
+              // Weight Field with Icon
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 10.0),
+                child: Row(
+                  children: [
+                    Icon(CupertinoIcons.arrow_2_circlepath),
+                    SizedBox(width: 10),
+                    Expanded(
+                      child: CupertinoTextField(
+                        controller: _weightController,
+                        placeholder: "Weight (kg)",
+                        keyboardType: TextInputType.number,
+                        padding: EdgeInsets.all(16),
+                        decoration: BoxDecoration(
+                          border: Border.all(color: CupertinoColors.systemGrey),
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+
+              // Calculate Button
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 10.0),
+                child: CupertinoButton.filled(
+                  child: Text("Calculate BMI"),
+                  onPressed: _calculateBMI,
+                ),
+              ),
+              CupertinoButton(
+                      child: Text("Reset"),
+                      onPressed: _reset,
+                    ),
+
+              if (_bmi > 0)
+              Text(
+              "BMI: ${_bmi.toStringAsFixed(2)}",
+              style: TextStyle(fontSize: 20),
+              ),
+
+              // Display BMI Category
+              if (_bmi > 0)
+                Text(
+                  "Category: ${_getBMICategory(_bmi)}",
+                  style: TextStyle(fontSize: 20),
+                ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
