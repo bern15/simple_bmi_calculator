@@ -1,23 +1,25 @@
-# Flutter app in Zapp!
+# BMI Calculator - Flutter Application
 
-A new Flutter project built with Zapp!
+A simple BMI (Body Mass Index) Calculator built with **Flutter**, utilizing the **Cupertino Design** for an iOS-style UI. This app allows users to input their height and weight, calculate their BMI, and display the corresponding BMI category (e.g., Underweight, Normal weight, Overweight, or Obese).
 
-----
+---
 
-> To learn how to use Zapp! check out the [documentation](https://docs.zapp.run)
+## Features
 
-----
+- **BMI Calculation:** Enter height and weight to calculate BMI.
+- **BMI Category:** Displays the corresponding category based on the calculated BMI.
+- **Reset Functionality:** Clear all inputs and reset the BMI value.
+- **User Interface:** Cupertino-styled UI for a sleek, iOS-inspired design.
+- **Simple and Intuitive Design:** Clean layout and easy-to-use interface.
 
-## Getting Started
+---
 
-This project is a starting point for a Flutter application.
+## Screenshots (try the app 😊)
 
-A few resources to get you started if this is your first Flutter project:
+---
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+## Installation and Usage
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
-
+### 1. Clone the Repository
+   ```bash
+   git clone https://github.com/bern15/simple_bmi_calculator.git
